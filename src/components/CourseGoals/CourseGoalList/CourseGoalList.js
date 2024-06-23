@@ -1,11 +1,11 @@
 import React from 'react';
 
 import CourseGoalItem from '../CourseGoalItem/CourseGoalItem';
-import classes from'./CourseGoalList.module.css';
+import styled from 'styled-components';
 
 const CourseGoalList = props => {
   return (
-    <ul className={classes['goal-list']}>
+    <Ul backgroundColor ="green">
       {props.items.map(goal => (
         <CourseGoalItem
           key={goal.id}
@@ -15,8 +15,22 @@ const CourseGoalList = props => {
           {goal.text}
         </CourseGoalItem>
       ))}
-    </ul>
+    </Ul>
   );
 };
+
+
+const Ul  = styled.ul`
+
+  
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background-color:${(props) => props.backgroundColor };
+
+
+`
+
+
 
 export default CourseGoalList;
