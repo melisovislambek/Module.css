@@ -1,19 +1,46 @@
 import React, { useState } from 'react';
 import Button from '../../UI/Button/Button';
 import styled from 'styled-components';
+import Modal from '../../UI/Modal/Modal';
+
 
 
 const CourseInput = props => {
   const [enteredValue, setEnteredValue] = useState('');
   const [isNotEntered, setisNotEnteredValue] = useState(false);
+  const [modal, setModal] = useState({
+    isShow: false,
+    message: '',
+    title: ''
 
+  })
   const goalInputChangeHandler = event => {
     setEnteredValue(event.target.value);
   };
 
-  const formSubmitHandler = event => {
+  const formSubmitHandler = (event) => {
     event.preventDefault();
-    if ( enteredValue.length ===0){
+    
+
+    ////// два сценария 2 текста
+
+    if (enteredValue.trim().length < 6){
+      setModal({
+        isShow: true,
+        message: "Should be more than 6 please change",
+        title: "Some error"
+      })
+    }
+
+
+    if ( enteredValue.trim().length === 0){   //// метод trim()убирает пробелы
+      setModal ({
+        isShow: true,
+        message: 'Please type something',
+        title: "No date"
+      })
+
+     
       setisNotEnteredValue(true)
       return
     }else {
@@ -24,7 +51,14 @@ const CourseInput = props => {
     setEnteredValue('')
   };
 
+
+  const closeModalHandler = () => {        /////Обработик при нажатии ок "Click"
+    setModal (prevState => !prevState )
+  }
+
   return (
+    <Div>
+      {modal.isShow && <Modal onClick ={closeModalHandler} title ={modal.title} message ={modal.message} />}
     <form onSubmit={formSubmitHandler}>
       <Div error ={isNotEntered} >
         <label>Course Goal</label>
@@ -33,8 +67,13 @@ const CourseInput = props => {
       </Div>
       <Button type="submit">Add Goal</Button>
     </form>
+    </Div>
   );
 };
+
+
+
+
 
 
 const Div = styled.div`

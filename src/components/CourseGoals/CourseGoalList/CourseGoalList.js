@@ -1,11 +1,14 @@
 import React from 'react';
-
+import Card from '../../UI/Button/Card';
 import CourseGoalItem from '../CourseGoalItem/CourseGoalItem';
 import styled from 'styled-components';
 
+
+
 const CourseGoalList = props => {
   return (
-    <Ul backgroundColor ="green">
+    <Card>
+<Ul backgroundColor ="white">
       {props.items.map(goal => (
         <CourseGoalItem
           key={goal.id}
@@ -16,6 +19,8 @@ const CourseGoalList = props => {
         </CourseGoalItem>
       ))}
     </Ul>
+    </Card>
+    
   );
 };
 
